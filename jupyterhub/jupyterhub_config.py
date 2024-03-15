@@ -19,7 +19,7 @@ c.JupyterHub.hub_ip = "0.0.0.0"
 # notebook_dir = os.environ.get("DOCKER_NOTEBOOK_DIR") or "/home/jovyan/work"
 c.DockerSpawner.notebook_dir = "/home/jovyan"
 c.DockerSpawner.volumes = {
-    "jupyterhub-user-{username}": '/home/jovya/work',
+    "jupyterhub-user-{username}": '/home/jovyan/work',
     "jupyterhub-share": "/home/jovyan/share",
 }
 
@@ -34,7 +34,7 @@ c.JupyterHub.proxy_auth_token = os.environ["CONFIGPROXY_AUTH_TOKEN"]
 
 
 c.JupyterHub.authenticator_class = nativeauthenticator.NativeAuthenticator
-c.NativeAuthenticator.open_signup = True  # This allows open signups
+c.NativeAuthenticator.open_signup = False  # This allows open signups
 c.NativeAuthenticator.minimum_password_length = 8  # Set minimum password length
 # c.NativeAuthenticator.allow_2fa = True
 c.JupyterHub.template_paths = [
@@ -165,13 +165,13 @@ c.JupyterHub.template_paths = [
 #          create restricted administrator roles.
 #          https://jupyterhub.readthedocs.io/en/stable/rbac/index.html
 #  Default: False
-c.JupyterHub.admin_access = True
+# c.JupyterHub.admin_access = False
 
 ## DEPRECATED since version 0.7.2, use Authenticator.admin_users instead.
 #  Default: set()
 c.JupyterHub.admin_users = ["simba"]
 
-c.LocalAuthenticator.create_system_users = True
+# c.LocalAuthenticator.create_system_users = True
 
 ## Allow named single-user servers per user
 #  Default: False
