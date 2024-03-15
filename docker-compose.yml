@@ -1,0 +1,32 @@
+# version: '3'
+# services: 
+#   notebook: 
+#     build: .
+#     user: '1000:1000'
+#     container_name: jupyter_notebook
+#     volumes:
+#       - ./data:/home/jovyan
+#     ports:
+#       - 8888:8888
+#     command: echo
+
+version: '3'
+
+services:
+  jupyterhub:
+    build: ./images/jupyterhub/
+    container_name: 'jupyterhub_hub'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./jupyterhub:/srv/jupyterhub  # Persistent data and configuration
+    ports:
+      - "8000:8000"
+    networks:
+      - jupyterhub_network
+    environment:
+      CONFIGPROXY_AUTH_TOKEN: ${CONFIGPROXY_AUTH_TOKEN}
+
+
+networks:
+  jupyterhub_network:
+    name: jupyterhub_network
