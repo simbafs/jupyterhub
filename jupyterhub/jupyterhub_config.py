@@ -9,17 +9,18 @@ import nativeauthenticator
 
 # Use the DockerSpawner to spawn user containers from the desired image
 c.JupyterHub.spawner_class = "dockerspawner.DockerSpawner"
+c.JupyterHub.hub_ip = "0.0.0.0"
+
 c.DockerSpawner.image = "astro-notebook"
 c.DockerSpawner.remove_containers = True
 
 # JupyterHub requires a single-user instance of the Server.
-c.JupyterHub.hub_ip = "0.0.0.0"
 
 # Mount the user's Docker volume to their workspace in Jupyter
-# notebook_dir = os.environ.get("DOCKER_NOTEBOOK_DIR") or "/home/jovyan/work"
-c.DockerSpawner.notebook_dir = "/home/jovyan"
+notebook_dir = os.environ.get("DOCKER_NOTEBOOK_DIR") or "/home/jovyan/work"
+c.DockerSpawner.notebook_dir = notebook_dir
 c.DockerSpawner.volumes = {
-    "jupyterhub-user-{username}": '/home/jovyan/work',
+    "/home/{username}/jupyterhub": "/home/jovyan/work",
     "jupyterhub-share": "/home/jovyan/share",
 }
 
@@ -40,7 +41,6 @@ c.NativeAuthenticator.minimum_password_length = 8  # Set minimum password length
 c.JupyterHub.template_paths = [
     f"{os.path.dirname(nativeauthenticator.__file__)}/templates/"
 ]
-
 
 # Optionally set a user data persistence directory
 # c.DockerSpawner.volumes = {

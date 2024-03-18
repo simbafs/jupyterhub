@@ -1,3 +1,4 @@
 jupyterhub/jupyterhub.sqlite 
 jupyterhub/jupyterhub_cookie_secret
 .env
+jupyterhub/jupyterhub-proxy.pid
